@@ -41,7 +41,7 @@ export default function Catego({ catego }) {
   return (
     <div >
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Categories</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label">Loại sản phẩm</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"

@@ -237,35 +237,11 @@ const DetailPage = () => {
             </div>
             <div className="box">
               <div className="row">
-                <h2>{products.name}</h2>
-                {isLearn ?
-                  <FavoriteIcon style={{ color: isLiked ? 'red' : 'white', fontSize: '40px' }} onClick={handleYeuThich} />
-
-                  : <span style={{ color: '#bb495e' }}>Free</span>}
-
-
-
+                <h2>{products.name || "Đang tải tên sản phẩm"}</h2>
+    
               </div>
-
-
-              <Colors colors={["red", "black", "crimson", "teal"]} />
-              <p><b>Author: </b> {products.full_name}</p>
-              <p><Rating name="disabled" value={Number(products.score)} readOnly style={{ marginRight: '20px' }} />
-
-              </p>
-              <Button variant="outlined" color="primary" disabled>
-                {completed ? "Hoàn thành" : "Chưa hoàn thành"}
-              </Button>
-              <p>
-                {'    ' + products.number_reviews + ' reviews '}
-                {'+    ' + products.number_students + ' students'}
-              </p>
-              <DetailsThumb images={imageThunal} tab={handleTab} myRef={myRef} />
-              {
-                isLearn ? <button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoinLearnContinue}>Learn continue</button> :
-                  <button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Join</button>
-
-              }
+              <p>0 đ</p>
+<button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Add to card</button>
               <p><b>Detail: </b> {products.short_description}</p>
               <p>
                 <div dangerouslySetInnerHTML={{ __html: products.full_description }}>
@@ -273,37 +249,6 @@ const DetailPage = () => {
               <p style={{ opacity: 0.4, fontStyle: 'oblique', fontSize: '13px' }}><b>Update at: </b>{moment(products.update_at).format("hh:mm DD/MM/YYYY")}</p>
 
 
-
-
-              <Accordion style={{
-                background: 'none',
-                marginTop: '20px',
-              }}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography className={classes.heading}>Video details</Typography>
-                </AccordionSummary>
-
-                {videos.map((video, index) => (
-                  <div>
-                    <AccordionDetails>
-                      <Typography>
-                        {index}: {video.name}
-                      </Typography>
-
-                    </AccordionDetails>
-                    <hr className="seperator" style={{ opacity: '0.5' }} />
-                  </div>
-                ))}
-                <AccordionDetails>
-                  <Typography>
-                    More ...
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
             </div>
 
           </div>
@@ -313,7 +258,7 @@ const DetailPage = () => {
       <div className="ok_setthoi" style={{ marginBottom: '50px' }}>
         <hr className="seperator" style={{ width: '80%' }} />
         <div style={{ boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.15)', padding: '20px' }}>
-          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Suggest courses of the same category</p>
+          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Những sản phẩm gợi ý cho bạn</p>
           <div className="carousel-wrapper" style={{ marginTop: '50px' }}>
             <Carousels breakPoints={breakPoints}>
               {productSuchas.map((item) => (

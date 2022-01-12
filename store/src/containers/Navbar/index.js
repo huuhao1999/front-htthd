@@ -69,13 +69,7 @@ const Navbar = () => {
            <Catego catego={catego} />    
         <div>
        
-          <button className="leaderboard">
-            <img alt="" role="button" src={Leaderboard} />
-          </button>
           
-          <button>
-            Free Trial
-          </button>
           {authenticated === true && userInfo ?
             <div>
               <Avatar className='size-avatar' alt="Remy Sharp" src={userInfo.avatar_url} onClick={handleClick} style={{ marginTop: '10px', backgroundColor: 'white' }} />
