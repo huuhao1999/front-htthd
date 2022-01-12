@@ -61,7 +61,7 @@ const Navbar = () => {
   return (
     <nav className="container">
       <a href="/">
-        <img src={CampK12Logo} alt="Camp K12 Logo" />
+        <img width={'150'} src={'https://res.cloudinary.com/taskmanagereaglob123/image/upload/v1642001860/Screenshot_2022-01-12_223709-removebg-preview_smo3zg.png'} alt="Camp K12 Logo" />
       </a>
       <div className={isShowMobileNav ? 'nav-items-mobile' : 'nav-items'}>
 

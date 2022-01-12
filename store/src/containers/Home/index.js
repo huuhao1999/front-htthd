@@ -14,11 +14,11 @@ import { useCategory } from '../../contexts/categories.context';
 import CourseCard from 'components/CourseCard';
 import { Carousel } from '3d-react-carousal';
 let slides = [
-  <img src="https://toidammeit.files.wordpress.com/2016/07/499292_1aeb_2.jpg" alt="1" />,
-  <img src="https://braniumacademy.net/wp-content/uploads/2020/08/Banner_Java_2.png" alt="2" />,
-  <img src="https://codeschool.vn/wp-content/uploads/2020/06/featured-nodejs-course.jpg" alt="3" />,
-  <img src="http://newsky.edu.vn/wp-content/uploads/khoa-hoc-tieng-anh-cho-nguoi-mat-goc.jpg" alt="4" />,
-  <img src="https://media-kyna.cdn.vccloud.vn/uploads/courses/273/img/image_url.jpg" alt="5" />];
+  <img src="https://cdn-www.vinid.net/2020/03/%C4%90i-ch%E1%BB%A3-thu%C3%AA-l%C3%A0-g%C3%AC.jpg" alt="1" />,
+  <img src="http://moneyideas.vn/wp-content/uploads/2018/07/y-tuong-kinh-doanh-dich-vu-di-cho-thue-1.jpg" alt="2" />,
+  <img src="https://thesaigontimes.vn/wp-content/uploads/2021/08/di-cho-ho.jpg" alt="3" />,
+  <img src="https://www.baotravinh.vn/uploads/image/2021/08/18/di%20cho.jpg" alt="4" />,
+  <img src="https://i2.wp.com/giupviectheogio.com/wp-content/uploads/2020/05/dich-vu-di-cho.jpg?resize=800%2C500&ssl=1" alt="5" />];
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -68,32 +68,32 @@ const Home = () => {
   return (
     <div className="online-courses container">
       <h1>
-        ONLINE COURSES
+      Đi Chợ Thuê
       </h1>
 
       <div className="banner-cards">
         <BannerCard
           image={GroupImg}
-          title="Learn interactively."
-          description="LIVE online sessions with our expert mentors."
+          title="Thực phẩm tươi sống."
+          description="Thực phẩm Tấn Tài ngoài cung cấp sỉ rau củ quả, chúng tôi còn cung cấp hải sản giá sỉ, thực phẩm tươi sống tươi ngon cho các hệ thống nhà hàng, khách sạn, ..."
           link="https://www.google.com"
           linkText="See a demo."
         />
         <BannerCard
           image={HomeImg}
-          title="Learn from anywhere"
-          description="Convenience and safety for you and your child."
+          title="Giao hàng nhanh"
+          description="Dịch vụ giao hàng, vận tải, kho bãi chuyên nghiệp uy tín hàng đầu Việt Nam, là đối tác vận chuyển tin cậy được hơn 100.000 cửa hàng, doanh nghiệp yêu thích."
         />
         <BannerCard
-          image={MedalImg} title="Learn from the pioneers."
-          description="We've been teaching kids to code since 2010."
+          image={MedalImg} title="Dễ dàng chọn lựa"
+          description="Chỉ cần ngồi ở nhà thì bạn có thể đặt hàng rồi"
           link="www.google.com"
           linkText="Read more."
         />
         <BannerCard
           image={TabletImg}
-          title="Learn by doing."
-          description="100% project-based curriculum. Solve real-world problems."
+          title="An toàn vệ sinh thực phẩm"
+          description="Vệ sinh an toàn thực phẩm hay an toàn thực phẩm hiểu theo nghĩa hẹp là một môn khoa học dùng để mô tả việc xử lý, chế biến, bảo quản và lưu trữ thực phẩm ..."
         />
       </div>
 
@@ -101,7 +101,7 @@ const Home = () => {
         <hr className="seperator" style={{ marginBottom: '50px' }} />
         <Carousel slides={slides} autoplay={false} interval={1000} />
         <div style={{ boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.15)', padding: '20px' }}>
-          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Featured course of the past week</p>
+          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Những thực phẩm bán chạy trong tuần qua</p>
           <div className="carousel-wrapper" style={{ marginTop: '60px' }}>
             <Carousels breakPoints={breakPoints} style={{ marginTop: '50px' }}>
               {highLight.map((item) => (
@@ -132,7 +132,7 @@ const Home = () => {
       <div className="ok_setthoi" style={{ marginBottom: '50px' }}>
         <hr className="seperator" />
         <div style={{ boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.15)', padding: '20px' }}>
-          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Courses with the most views</p>
+          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Nhu yếu phẩm cần thiết cho cuộc sống hàng ngày</p>
           <div className="carousel-wrapper" style={{ marginTop: '50px' }}>
             <Carousels breakPoints={breakPoints}>
               {mostOfView.map((item) => (
@@ -163,7 +163,7 @@ const Home = () => {
       <div className="ok_setthoi" style={{ marginBottom: '50px' }}>
         <hr className="seperator" />
         <div style={{ boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.15)', padding: '20px' }}>
-          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Latest courses</p>
+          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Những sản phẩm khuyến mại giảm giá</p>
           <div className="carousel-wrapper" style={{ marginTop: '50px' }}>
             <Carousels breakPoints={breakPoints}>
               {lastest.map((item) => (
@@ -194,7 +194,7 @@ const Home = () => {
       <div className="ok_setthoi" style={{ marginBottom: '50px' }}>
         <hr className="seperator" />
         <div style={{  padding: '20px' }}>
-          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Categories are most subscribed to in the past week</p>
+          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Sản phẩm có lượt đánh giá tốt</p>
           <div className="carousel-wrapper" style={{ marginTop: '50px' }}>
             <CourseContainer
               gradeRanges={["1-4", "5-8", "9-12"]}
