@@ -79,7 +79,7 @@ const CourseContainer = ({
                         setProducts(resgisters);
                     }}
                 >
-                    Your Couses
+                    Danh sách đơn hàng
                 </button>
                 <button
                     className={selected === 1 && 'active'}
@@ -89,7 +89,7 @@ const CourseContainer = ({
                     }}
                 >
 
-                    Favorite list
+                    Sản phẩm bạn yêu thích
                 </button>
 
             </div>

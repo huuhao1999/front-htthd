@@ -22,7 +22,7 @@ const ProfileCourses = () => {
   return (
     <div className="online-courses container">
       <h1>
-        Your courses
+        Đơn hàng
       </h1>   
       <div className="ok_setthoi" style={{ marginBottom: '50px' }}>
         <hr className="seperator" />

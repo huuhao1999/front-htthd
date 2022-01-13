@@ -29,7 +29,7 @@ const breakPoints = [
 const Home = () => {
   const [cateRegis, setCateRegis] = useState([{
     "_id": 1,
-    "name": "Khóa học lập trình",
+    "name": "Thực phẩm sạch và chất lượng",
     "count": 2
   }]);
   const [highLight, setHighLight] = useState([]);
