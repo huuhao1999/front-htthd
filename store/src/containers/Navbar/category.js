@@ -56,7 +56,7 @@ export default function Catego({ catego }) {
           </MenuItem>
           {catego.map((item) => (
             <MenuItem value={item._id} onClick={() => {
-              history.push(`/search?category_id=${item._id}`)
+              history.push(`/search?category_id=${item.id}`)
               window.location.reload();
             }}>{item.name}</MenuItem>
           ))}

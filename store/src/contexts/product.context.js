@@ -4,6 +4,15 @@ import api from '../services/api.service';
 export const ProductContext = createContext({});
 
 export const ProductProvider = ({ children }) => {
+    
+    
+    async function getAllProduct() {
+        const response = await api.get('/Products');
+        return response;
+    }
+
+
+
     async function getHighlightWeek() {
         const response = await api.get('/products/highlight-of-week');
         return response;
@@ -56,7 +65,7 @@ export const ProductProvider = ({ children }) => {
         return response;
     }
     return (
-        <ProductContext.Provider value={{ VideoPause, createReview, getAllReviews, getVideosByProductId, getHighlightWeek, mostOfViews, getLastest, getProductByQuery, getSearch, getDetailProductById }}>
+        <ProductContext.Provider value={{ getAllProduct,VideoPause, createReview, getAllReviews, getVideosByProductId, getHighlightWeek, mostOfViews, getLastest, getProductByQuery, getSearch, getDetailProductById }}>
             {children}
         </ProductContext.Provider>
     );

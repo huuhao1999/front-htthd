@@ -101,8 +101,8 @@ export default function SignUp() {
       email: email,
       password: password,
       address: address,
-      full_name: fullname,
-      birthday: '1999-10-10'
+      name: fullname,
+      phone: '0967023427'
     }
     context
       .signUp(entity)

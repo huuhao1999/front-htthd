@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem(global.config.LOCALSTORAGE_NAME);
   }
   async function signIn(entity) {
-    const response = await api.post('/auth/signin', entity);
+    const response = await api.post('/auth/login', entity);
     setUser(response.data);
     api.defaults.headers.Authorization = response.data.accessToken;
     localStorage.setItem(
@@ -30,9 +30,10 @@ export const AuthProvider = ({ children }) => {
     return response;
   }
   async function signUp(entity) {
-    const response = await api.post('/auth/signup', entity);
+    const response = await api.post('/auth/register', entity);
     return response;
   }
+
   async function getUser(id) {
     const response = await api.get(`/users/${id}`);
     return response;

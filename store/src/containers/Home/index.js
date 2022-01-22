@@ -39,30 +39,33 @@ const Home = () => {
   let context = useProduct();
   useEffect(() => {
     let mounted = true;
-    context.getHighlightWeek()
+    context.getAllProduct()
       .then(items => {
+        console.log(items);
         if (mounted) {
           setHighLight(items.data)
         }
+      }).catch((err)=>{
+        console.log(err);
       })
-    context.mostOfViews()
-      .then(items => {
-        if (mounted) {
-          setMostOfView(items.data)
-        }
-      })
-    context.getLastest()
-      .then(items => {
-        if (mounted) {
-          setLastest(items.data)
-        }
-      })
-    contextCate.mostRegisted()
-      .then((items) => {
-        if (mounted) {
-          setCateRegis(items.data)
-        }
-      })
+    // context.mostOfViews()
+    //   .then(items => {
+    //     if (mounted) {
+    //       setMostOfView(items.data)
+    //     }
+    //   })
+    // context.getLastest()
+    //   .then(items => {
+    //     if (mounted) {
+    //       setLastest(items.data)
+    //     }
+    //   })
+    // contextCate.mostRegisted()
+    //   .then((items) => {
+    //     if (mounted) {
+    //       setCateRegis(items.data)
+    //     }
+    //   })
     return () => mounted = false;
   }, [])
   return (
