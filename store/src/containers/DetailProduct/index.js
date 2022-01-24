@@ -81,7 +81,7 @@ const DetailPage = () => {
           if (mounted) {
             setProducts(items.data);
             console.log(items.data);
-             setImageThunal([items.data.urlImage]);
+            setImageThunal([items.data.urlImage]);
             contextProduct.getDetailProductById1(items.data.categoryId)
               .then(it => {
                 console.log(it);
@@ -113,12 +113,43 @@ const DetailPage = () => {
   };
   const handleJoin = () => {
     if (authenticated) {
-      contextProfile.registerCourese({ product_id: id }).then((res) => {
-        addNoti("Join successful courses", "success", 'Join course')
-        setTimeout(function () { history.push(`/detail/${id}/videos`) }, 3000);
-      }).catch((err) => {
-        addNoti("Failed to join the course", "danger", 'Join course')
-      })
+      const storedDataUserCart = localStorage.getItem('cart_web');
+      if (storedDataUserCart) {
+        let cart = JSON.parse(storedDataUserCart);
+        let flat = 0;
+        for (let asd of cart) {
+          if (asd.id == products.id) {
+            asd.quantity = asd.quantity?  asd.quantity + 1: 1;
+            flat = 1;
+          }
+        }
+        if (flat == 0) {
+          let a1 = products;
+        a1.quantity = 1;
+          cart.push(a1);
+        }
+        
+
+
+
+        localStorage.setItem(
+          'cart_web',
+          JSON.stringify(cart)
+        );
+      } else {
+
+        let a1 = products;
+        a1.quantity = 1;
+        let cart = [a1];
+        localStorage.setItem(
+          'cart_web',
+          JSON.stringify(cart)
+        );
+
+
+      }
+      addNoti('Thêm giỏ hàng thành công', 'success', "Thêm");
+
     } else {
       history.push('/signin');
     }
@@ -234,12 +265,12 @@ const DetailPage = () => {
             <div className="box">
               <div className="row">
                 <h2>{products.name || "Đang tải tên sản phẩm"}</h2>
-    
+
               </div>
-              <p>{products.price? products.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}): ''}</p>
-<button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Thêm giỏ hàng</button>
-<br/>
-<button className="cart"  onClick={handleJoin}>Mua ngay</button>
+              <p>{products.price ? products.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) : ''}</p>
+              <button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Thêm giỏ hàng</button>
+              <br />
+              <button className="cart" onClick={handleJoin}>Mua ngay</button>
               <p><b>Detail: </b> {products.fullDescription}</p>
               <p>
                 <div dangerouslySetInnerHTML={{ __html: products.fullDescription }}>
@@ -261,22 +292,22 @@ const DetailPage = () => {
             <Carousels breakPoints={breakPoints}>
               {productSuchas.map((item) => (
                 <CourseCard
-                title={item.name}
-                subTitle={item.categoryName}
-                happyStudents='1000'
-                hours='100h'
-                sessions="6"
-                isWeekend='true'
-                isWeekday='true'
-                price='0'
-                discount='0'
-                learnMoreLink='#'
-                imageLink={item.urlImage}
-                categoryName={item.categoryName}
-                lecturer={item.storeName}
-                reviews={item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
-                score={'10'}
-                productId = {item.id}
+                  title={item.name}
+                  subTitle={item.categoryName}
+                  happyStudents='1000'
+                  hours='100h'
+                  sessions="6"
+                  isWeekend='true'
+                  isWeekday='true'
+                  price='0'
+                  discount='0'
+                  learnMoreLink='#'
+                  imageLink={item.urlImage}
+                  categoryName={item.categoryName}
+                  lecturer={item.storeName}
+                  reviews={item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                  score={'10'}
+                  productId={item.id}
                 />
               ))}
             </Carousels>
