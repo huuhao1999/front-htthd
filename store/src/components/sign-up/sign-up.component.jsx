@@ -76,25 +76,24 @@ export default function SignUp() {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setSubmitNEW(true)
+ 
     setLoading(true);
     event.preventDefault();
     if (!validateEmail(email)) {
       addNoti('Please input right email!', 'danger', 'Notification');
       setLoading(false);
-      setSubmitNEW(false)
+
       return;
     }
     if (password != repassword) {
       addNoti('Password not equal!', 'danger', 'Notification');
       setLoading(false);
-      setSubmitNEW(false)
-      return;
+    return;
     }
     if (password == '' || address == '' || fullname == '') {
       addNoti('Please fill all field', 'danger', 'Notification');
       setLoading(false);
-      setSubmitNEW(false)
+
       return;
     }
     let entity = {
@@ -106,24 +105,14 @@ export default function SignUp() {
     }
     context
       .signUp(entity)
-      .catch((error) => {
-        if (_.has(error, 'response'))
-          if (error.response.data) {
-            addNoti('This email has been registered before', 'danger', 'Notification');
-          } else addNoti('Something wrong', 'danger', 'Notification')
-        setLoading(false);
-        setSubmitNEW(false)
-        setSubmitNEW(false)
-        return;
-      })
       .then((res) => {
         if (_.has(res, 'status'))
-          if (res.status === 201) {
-            setOtpServer(res.data)
-            setIsShowOtp(true);
+          if (res.status === 204) {
+            addNoti('Tạo tài khoản thành công', 'success', 'Notification');
+            setTimeout(function () { history.push('/signin'); }, 3000);
           }
         setLoading(false);
-      });
+      }).catch(err=>{  addNoti('Email đã được tồn tại trong hệ thống', 'danger', 'Notification');})
   }
   const handleSubmitOTP = async (event) => {
     event.preventDefault();
@@ -144,8 +133,7 @@ export default function SignUp() {
         setLoading(false);
         if (_.has(res, 'status'))
           if (res.status === 201) {
-            addNoti('Successful account registration', 'success', 'Notification');
-            setTimeout(function () { history.push('/signin'); }, 3000);
+       
 
           }
       });

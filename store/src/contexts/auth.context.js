@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
   }
   async function signUp(entity) {
     const response = await api.post('/auth/register', entity);
+    console.log(response);
     return response;
   }
 
