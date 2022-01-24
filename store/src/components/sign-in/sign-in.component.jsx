@@ -112,8 +112,9 @@ function SignIn(props) {
         }
       })
       .then((res) => {
+        console.log(res);
         if (_.has(res, 'status'))
-          if (res.status === 201) {
+          if (res.status === 200) {
             addNoti('Login success', 'success', 'Notification');
             setTimeout(function () {
               history.push('/');
