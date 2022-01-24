@@ -154,6 +154,52 @@ const DetailPage = () => {
       history.push('/signin');
     }
   }
+  const handleJoinMua = () => {
+    if (authenticated) {
+      const storedDataUserCart = localStorage.getItem('cart_web');
+      if (storedDataUserCart) {
+        let cart = JSON.parse(storedDataUserCart);
+        let flat = 0;
+        for (let asd of cart) {
+          if (asd.id == products.id) {
+            asd.quantity = asd.quantity?  asd.quantity + 1: 1;
+            flat = 1;
+          }
+        }
+        if (flat == 0) {
+          let a1 = products;
+        a1.quantity = 1;
+          cart.push(a1);
+        }
+        
+
+
+
+        localStorage.setItem(
+          'cart_web',
+          JSON.stringify(cart)
+        );
+      } else {
+
+        let a1 = products;
+        a1.quantity = 1;
+        let cart = [a1];
+        localStorage.setItem(
+          'cart_web',
+          JSON.stringify(cart)
+        );
+
+
+      }
+ //     addNoti('Thêm giỏ hàng thành công', 'success', "Thêm");
+      history.push('/checkout');
+    } else {
+      history.push('/signin');
+    }
+  }
+
+
+  
   const handleJoinLearnContinue = () => {
     history.push(`/detail/${id}/videos`)
   }
@@ -270,7 +316,7 @@ const DetailPage = () => {
               <p>{products.price ? products.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) : ''}</p>
               <button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Thêm giỏ hàng</button>
               <br />
-              <button className="cart" onClick={handleJoin}>Mua ngay</button>
+              <button className="cart" onClick={handleJoinMua}>Mua ngay</button>
               <p><b>Detail: </b> {products.fullDescription}</p>
               <p>
                 <div dangerouslySetInnerHTML={{ __html: products.fullDescription }}>
