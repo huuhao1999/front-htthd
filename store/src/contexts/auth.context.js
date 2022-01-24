@@ -53,6 +53,12 @@ export const AuthProvider = ({ children }) => {
     const response = await api.post('/auth/otp', entity);
     return response;
   }
+  async function profileuser(token_otp) {
+
+    api.defaults.headers.Authorization = `Bearer ${token_otp}`;
+    const response = await api.get('/auth/profile');
+    return response;
+  }
   return (
     <AuthContext.Provider
       value={{
@@ -62,7 +68,8 @@ export const AuthProvider = ({ children }) => {
         signUp,
         otp,
         signOut,
-        getUser
+        getUser,
+        profileuser
       }}
     >
       {children}

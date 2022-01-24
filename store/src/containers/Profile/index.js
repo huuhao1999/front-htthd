@@ -42,16 +42,19 @@ export default function Profile() {
     useEffect(() => {
         setTimeout(function () {
             if (context.user.user) {
-
-                context.getUser(context.user.user.user_id).then((re) => {
-                    setUser(re.data);
-                    mainFeaturedPost.title = re.data.full_name;
-                    mainFeaturedPost.description = re.data.email;
-                    featuredPosts[0].attended = moment(re.data.create_at).format("hh:mm DD/MM/YYYY");
-                    featuredPosts[0].address = re.data.address ? re.data.address : featuredPosts[0].address;
-                    featuredPosts[0].phone = re.data.phone ? re.data.phone : featuredPosts[0].phone;
-                    featuredPosts[0].image = re.data.avatar_url ? re.data.avatar_url : featuredPosts[0].image;
+                const storedDataUser = localStorage.getItem(global.config.LOCALSTORAGE_NAME);
+                if (storedDataUser) {      
+                context.profileuser(JSON.parse(storedDataUser).accessToken).then((re) => {
+                    console.log(re);
+                     setUser(re.data);
+                     mainFeaturedPost.title = re.data.full_name;
+                     mainFeaturedPost.description = re.data.email;
+                     featuredPosts[0].attended = moment(re.data.create_at).format("hh:mm DD/MM/YYYY");
+                     featuredPosts[0].address = re.data.address ? re.data.address : featuredPosts[0].address;
+                     featuredPosts[0].phone = re.data.phone ? re.data.phone : featuredPosts[0].phone;
+                    // featuredPosts[0].image = re.data.avatar_url ? re.data.avatar_url : featuredPosts[0].image;
                 })
+            }
             }
 
         }, 0);

@@ -42,6 +42,7 @@ function App() {
                   <Route exact path="/detail/:id" component={DetailPage} />
                   <Route exact path="/profile" component={Profile} />
                   <Route exact path="/myorders" component={MyOrders} />
+                  <Route exact path="/checkout"  />
                 </Switch>
                 <hr className="seperator" style={{ opacity: '0.5' }} />
               </BrowserRouter>

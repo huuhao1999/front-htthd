@@ -237,7 +237,9 @@ const DetailPage = () => {
     
               </div>
               <p>{products.price? products.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}): ''}</p>
-<button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Add to card</button>
+<button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Thêm giỏ hàng</button>
+<br/>
+<button className="cart"  onClick={handleJoin}>Mua ngay</button>
               <p><b>Detail: </b> {products.fullDescription}</p>
               <p>
                 <div dangerouslySetInnerHTML={{ __html: products.fullDescription }}>
