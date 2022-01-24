@@ -4,8 +4,8 @@ import api from '../services/api.service';
 export const ProductContext = createContext({});
 
 export const ProductProvider = ({ children }) => {
-    
-    
+
+
     async function getAllProduct() {
         const response = await api.get('/Products');
         return response;
@@ -60,18 +60,24 @@ export const ProductProvider = ({ children }) => {
         const response = await api.get(`/products/${id}/videos`);
         return response;
     }
-    async function createReview(entity, productId) {
-        let params = { product_id: productId }
-        const response = await api.post('/reviews', entity, { params });
+    async function createReview(entity) {
+
+        const storedDataUser = localStorage.getItem(global.config.LOCALSTORAGE_NAME);
+        api.defaults.headers.Authorization = `Bearer ${JSON.parse(storedDataUser).accessToken}`;
+
+       
+
+
+        const response = await api.post('/Review/create', entity);
         return response;
     }
     async function getAllReviews(productId) {
-        let params = { product_id: productId }
-        const response = await api.get(`/reviews`, { params });
+        let params = { productId: productId }
+        const response = await api.get(`/Review/by-product`, { params });
         return response;
     }
     return (
-        <ProductContext.Provider value={{ getDetailProductById1, getAllProduct,VideoPause, createReview, getAllReviews, getVideosByProductId, getHighlightWeek, mostOfViews, getLastest, getProductByQuery, getSearch, getDetailProductById }}>
+        <ProductContext.Provider value={{ getDetailProductById1, getAllProduct, VideoPause, createReview, getAllReviews, getVideosByProductId, getHighlightWeek, mostOfViews, getLastest, getProductByQuery, getSearch, getDetailProductById }}>
             {children}
         </ProductContext.Provider>
     );

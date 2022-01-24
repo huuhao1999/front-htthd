@@ -206,10 +206,11 @@ const DetailPage = () => {
   const [rate, setRate] = useState(5);
   const sendReviews = () => {
     let entity = {
-      score: rate,
-      content: reviewValueSend.current.value
+      "score": Number(rate),
+      "content": reviewValueSend.current.value,
+      "product_id": Number(id)
     }
-    contextProduct.createReview(entity, id).then((res) => {
+    contextProduct.createReview(entity).then((res) => {
       addNoti('Add review successfully', 'success', "Add");
       setTimeout(function () { window.location.reload(false); }, 2000);
       //Xử lí review
