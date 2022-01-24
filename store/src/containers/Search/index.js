@@ -35,6 +35,7 @@ const Search = () => {
     
     let entity = { ...query, order: e.target.value, }
     if (checked != 0) entity.category_id = checked;
+    console.log(`/search?${serialize(entity)}`);
     history.push(`/search?${serialize(entity)}`);
     window.location.reload();
   }
@@ -57,33 +58,14 @@ const Search = () => {
         <div style={{ color: 'white', display: 'inline' }}>
           {category.map((item) => (
             <div style={{ color: 'white', display: 'inline', marginRight: '20px' }}>
-              <input type="checkbox" id="vehicle1" name="vehicle1" defaultValue={item._id} style={{ marginTop: '20px' }} onChange={onCheckedCa} checked={checked == item._id} />
+              <input type="checkbox" id="vehicle1" name="vehicle1" defaultValue={item.id} style={{ marginTop: '20px' }} onChange={onCheckedCa} checked={checked == item.id} />
               <label htmlFor="vehicle1">{item.name}</label>
             </div>
           ))}
         </div>
 
         <div style={{ padding: '20px' }}>
-          <p style={{ color: 'white', fontSize: '15px' }}>
-            Score:
-
-            {query.order === 'asc' ?
-
-              <select name="cars" id="cars" style={{ marginLeft: '7px' }} onChange={onChangeScore}>
-                <option value="desc">Decrease</option>
-                <option value="asc" selected>Increase</option>
-              </select> :
-              <select name="cars" id="cars" style={{ marginLeft: '7px' }} onChange={onChangeScore}>
-                <option value="desc" selected>Decrease</option>
-                <option value="asc" >Increase</option>
-              </select>
-            }
-
-
-
-
-          </p>
-          <p style={{ color: 'white', fontSize: '20px' }}>You are searching: <b>{query.keyword ? query.keyword : ''}</b></p>
+          <p style={{ color: 'white', fontSize: '20px' }}>You are searching: <b>{query.text ? query.text : ''}</b></p>
           <div className="carousel-wrapper" style={{ marginTop: '50px' }}>
 
             <CourseContainer

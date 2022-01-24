@@ -43,7 +43,38 @@ const Home = () => {
       .then(items => {
         console.log(items);
         if (mounted) {
-          setHighLight(items.data)
+          setHighLight(items.data);
+          let tempasd = [];
+          for (let i=0; i< items.data.length; i++ ){
+            if(i<= 5){
+              tempasd.push( items.data[i]);
+              if(i==5){
+                setHighLight(tempasd);
+                tempasd=[]
+              }
+            }
+
+            if(i>5 &&i<= 10){
+              tempasd.push( items.data[i]);
+              if(i==10){
+                setMostOfView(tempasd);
+                tempasd=[]
+              }
+            }
+
+            if( i >10){
+              tempasd.push( items.data[i]);
+              if(i==items.data.length-1){
+                setLastest(tempasd);
+                tempasd=[]
+              }
+            }
+
+
+
+
+            
+          }
         }
       }).catch((err)=>{
         console.log(err);
@@ -110,7 +141,7 @@ const Home = () => {
               {highLight.map((item) => (
                 <CourseCard
                   title={item.name}
-                  subTitle={item.category}
+                  subTitle={item.categoryName}
                   happyStudents='1000'
                   hours='100h'
                   sessions="6"
@@ -119,12 +150,12 @@ const Home = () => {
                   price='0'
                   discount='0'
                   learnMoreLink='#'
-                  imageLink={item.url_image}
-                  categoryName={item.category}
-                  lecturer={item.author_name}
-                  reviews={item.number_reviews}
-                  score={item.score}
-                  productId = {item._id}
+                  imageLink={item.urlImage}
+                  categoryName={item.categoryName}
+                  lecturer={item.storeName}
+                  reviews={item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
+                  score={'10'}
+                  productId = {item.id}
                 />
 
               ))}
@@ -140,22 +171,22 @@ const Home = () => {
             <Carousels breakPoints={breakPoints}>
               {mostOfView.map((item) => (
                 <CourseCard
-                  title={item.name}
-                  subTitle={item.category}
-                  happyStudents='1000'
-                  hours='100h'
-                  sessions="6"
-                  isWeekend='true'
-                  isWeekday='true'
-                  price='0'
-                  discount='0'
-                  learnMoreLink='#'
-                  imageLink={item.url_image}
-                  categoryName={item.category}
-                  lecturer={item.author_name}
-                  reviews={item.number_reviews}
-                  score={item.score}
-                  productId = {item._id}
+                title={item.name}
+                subTitle={item.categoryName}
+                happyStudents='1000'
+                hours='100h'
+                sessions="6"
+                isWeekend='true'
+                isWeekday='true'
+                price='0'
+                discount='0'
+                learnMoreLink='#'
+                imageLink={item.urlImage}
+                categoryName={item.categoryName}
+                lecturer={item.storeName}
+                reviews={item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
+                score={'10'}
+                productId = {item.id}
                 />
 
               ))}
@@ -171,42 +202,28 @@ const Home = () => {
             <Carousels breakPoints={breakPoints}>
               {lastest.map((item) => (
                 <CourseCard
-                  title={item.name}
-                  subTitle={item.category}
-                  happyStudents='1000'
-                  hours='100h'
-                  sessions="6"
-                  isWeekend='true'
-                  isWeekday='true'
-                  price='0'
-                  discount='0'
-                  learnMoreLink='#'
-                  imageLink={item.url_image}
-                  categoryName={item.category}
-                  lecturer={item.author_name}
-                  reviews={item.number_reviews}
-                  score={item.score}
-                  productId = {item._id}
+                title={item.name}
+                subTitle={item.categoryName}
+                happyStudents='1000'
+                hours='100h'
+                sessions="6"
+                isWeekend='true'
+                isWeekday='true'
+                price='0'
+                discount='0'
+                learnMoreLink='#'
+                imageLink={item.urlImage}
+                categoryName={item.categoryName}
+                lecturer={item.storeName}
+                reviews={item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
+                score={'10'}
+                productId = {item.id}
                 />
 
               ))}
             </Carousels>
           </div>
         </div>
-      </div>
-      <div className="ok_setthoi" style={{ marginBottom: '50px' }}>
-        <hr className="seperator" />
-        <div style={{  padding: '20px' }}>
-          <p style={{ textAlign: "center", color: 'white', fontSize: '30px' }}>Sản phẩm có lượt đánh giá tốt</p>
-          <div className="carousel-wrapper" style={{ marginTop: '50px' }}>
-            <CourseContainer
-              gradeRanges={["1-4", "5-8", "9-12"]}
-              categoriesRe={cateRegis}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="book-button">
       </div>
     </div>
   )

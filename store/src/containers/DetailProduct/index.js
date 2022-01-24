@@ -80,18 +80,14 @@ const DetailPage = () => {
         .then(items => {
           if (mounted) {
             setProducts(items.data);
-            imagesThum.unshift(items.data.url_image);
-            setVideos(items.data.videos);
-            setImageThunal(imagesThum);
-            setIsLearn(items.data.registered);
-            setIsLiked(items.data.liked);
-            setIsReview(items.data.reviewed);
-            setCompleted(items.data.status)
-            contextProduct.getProductByQuery({ category_id: items.data.category_id })
+            console.log(items.data);
+             setImageThunal([items.data.urlImage]);
+            contextProduct.getDetailProductById1(items.data.categoryId)
               .then(it => {
+                console.log(it);
                 if (mounted) {
-                  const result = it.data.records.filter(function (el) { return el._id != items.data._id; });
-                  setProductSuchas(result);
+                  //const result = it.data.filter(function (el) { return el._id != items.data._id; });
+                  setProductSuchas(it.data);
                 }
               })
           }
@@ -240,11 +236,11 @@ const DetailPage = () => {
                 <h2>{products.name || "Đang tải tên sản phẩm"}</h2>
     
               </div>
-              <p>0 đ</p>
+              <p>{products.price? products.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}): ''}</p>
 <button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Add to card</button>
-              <p><b>Detail: </b> {products.short_description}</p>
+              <p><b>Detail: </b> {products.fullDescription}</p>
               <p>
-                <div dangerouslySetInnerHTML={{ __html: products.full_description }}>
+                <div dangerouslySetInnerHTML={{ __html: products.fullDescription }}>
                 </div></p>
               <p style={{ opacity: 0.4, fontStyle: 'oblique', fontSize: '13px' }}><b>Update at: </b>{moment(products.update_at).format("hh:mm DD/MM/YYYY")}</p>
 
@@ -263,22 +259,22 @@ const DetailPage = () => {
             <Carousels breakPoints={breakPoints}>
               {productSuchas.map((item) => (
                 <CourseCard
-                  title={item.name}
-                  subTitle={item.category}
-                  happyStudents='1000'
-                  hours='100h'
-                  sessions="6"
-                  isWeekend='true'
-                  isWeekday='true'
-                  price='0'
-                  discount='0'
-                  learnMoreLink='#'
-                  imageLink={item.url_image}
-                  categoryName={item.category}
-                  lecturer={item.author_name}
-                  reviews={item.number_reviews}
-                  score={item.score}
-                  productId={item._id}
+                title={item.name}
+                subTitle={item.categoryName}
+                happyStudents='1000'
+                hours='100h'
+                sessions="6"
+                isWeekend='true'
+                isWeekday='true'
+                price='0'
+                discount='0'
+                learnMoreLink='#'
+                imageLink={item.urlImage}
+                categoryName={item.categoryName}
+                lecturer={item.storeName}
+                reviews={item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
+                score={'10'}
+                productId = {item.id}
                 />
               ))}
             </Carousels>

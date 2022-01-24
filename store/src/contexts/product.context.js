@@ -47,9 +47,15 @@ export const ProductProvider = ({ children }) => {
         return response;
     }
     async function getDetailProductById(id) {
-        const response = await api.get(`/products/${id}`);
+        const response = await api.get(`/Products/id?Id=${id}`);
         return response;
     }
+
+    async function getDetailProductById1(id) {
+        const response = await api.get(`/products/search?categoryId=${id}`);
+        return response;
+    }
+
     async function getVideosByProductId(id) {
         const response = await api.get(`/products/${id}/videos`);
         return response;
@@ -65,7 +71,7 @@ export const ProductProvider = ({ children }) => {
         return response;
     }
     return (
-        <ProductContext.Provider value={{ getAllProduct,VideoPause, createReview, getAllReviews, getVideosByProductId, getHighlightWeek, mostOfViews, getLastest, getProductByQuery, getSearch, getDetailProductById }}>
+        <ProductContext.Provider value={{ getDetailProductById1, getAllProduct,VideoPause, createReview, getAllReviews, getVideosByProductId, getHighlightWeek, mostOfViews, getLastest, getProductByQuery, getSearch, getDetailProductById }}>
             {children}
         </ProductContext.Provider>
     );

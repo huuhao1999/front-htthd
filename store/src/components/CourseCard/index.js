@@ -44,7 +44,7 @@ const CourseCard = ({
       <div className="details">
         <div className="detail">
           <img alt="" src={GrowthImage} />
-          <p><b>{parseFloat(happyStudents / 1000)}k</b> Happy Students to Learn Courses</p>
+          <p><b></b> Sản phẩm sạch và chất lượng</p>
         </div>
         <div className="detail">
           <img alt="" src={menuImage} />
@@ -78,7 +78,7 @@ const CourseCard = ({
 
       <div className="link">
         <Link to={`/detail/${productId}`} onClick={() => { setTimeout(() => { window.location.reload(false); }, 0); }}>
-          LEARN MORE
+        Xem ngay
         </Link>
       </div>
     </div>

@@ -14,7 +14,7 @@ const ProfileCourses = () => {
     contextCate.mostRegisted()
       .then((items) => {
         if (mounted) {
-          setCateRegis(items.data)
+       //   setCateRegis(items.data)
         }
       })
     return () => mounted = false;

@@ -21,15 +21,16 @@ export default function Search() {
     let [keyword, setKeyword] = useState('');
     const handleChange = (event) => {
         setKeyword(event.target.value);
-        context.getSearch({ keyword: event.target.value }).then((res) => {
-            setData(res.data.records);
+        context.getSearch({ text: event.target.value }).then((res) => {
+            console.log(res);
+            setData(res.data);
         });
     }
 
 
     
     const handleOnclickSearch = () => {
-        history.push(`/search?keyword=${valueRef.current.value}`);
+        history.push(`/search?text=${valueRef.current.value}`);
         window.location.reload(false);
 
     }
