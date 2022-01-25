@@ -21,6 +21,7 @@ import DetailPage from './containers/DetailProduct/index';
 import Videos from './containers/Videos/index';
 import Profile from './containers/Profile/index';
 import MyOrders from './containers/ProfileCourse/index';
+import Cart from './containers/Cart/index';
 import ReactNotifications from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import 'animate.css';
@@ -43,6 +44,7 @@ function App() {
                   <Route exact path="/profile" component={Profile} />
                   <Route exact path="/myorders" component={MyOrders} />
                   <Route exact path="/checkout"  />
+                  <Route exact path="/cart" component={Cart} />
                 </Switch>
                 <hr className="seperator" style={{ opacity: '0.5' }} />
               </BrowserRouter>
