@@ -6,8 +6,9 @@ import Sidebar from '../sidebar/Sidebar'
 import TopNav from '../topnav/TopNav'
 import Routes from '../Routes'
 import { AuthProvider } from '../../contexts/auth';
+import { OrderProvider } from '../../contexts/order';
+import { ProductProvider } from '../../contexts/product';
 import { BrowserRouter, Route } from 'react-router-dom'
-
 import { useSelector, useDispatch } from 'react-redux'
 
 import ThemeAction from '../../redux/actions/ThemeAction'
@@ -40,8 +41,12 @@ const Layout = () => {
                     <div className="layout__content">
                         <TopNav/>
                         <div className="layout__content-main">
-                        <AuthProvider>
-                            <Routes/>
+                            <AuthProvider>
+                                <OrderProvider>
+                                    <ProductProvider>
+                                        <Routes/>
+                                    </ProductProvider>
+                                </OrderProvider>
                             </AuthProvider>
                         </div>
                     </div>
