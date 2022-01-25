@@ -86,7 +86,6 @@ function SignIn(props) {
       })
       .then((res) => {
         if (!res) {
-          alert("Bạn không có quyền truy cập vào Admin");
           setLoading(false);
           return;
         }
@@ -132,7 +131,6 @@ function SignIn(props) {
     if (event.target.name == 'password') setPassword(event.target.value);
     if (event.target.name == 'email') setEmail(event.target.value);
   }
-
 
   return (
     <div>

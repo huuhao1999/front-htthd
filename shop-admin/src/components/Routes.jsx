@@ -18,12 +18,12 @@ const Routes = () => {
     let context = useAuth();
     let [authenticated,setAuthenticated]= useState(context.authenticated);
     const location = useLocation();
-    // useEffect(() => {
-    //    if(location.pathname != '/login'){
-    //     setAuthenticated(context.authenticated);
-    //     if(authenticated===false) history.push('/login');
-    //    }
-    // })
+    useEffect(() => {
+       if(location.pathname != '/login'){
+        setAuthenticated(context.authenticated);
+        if(authenticated===false) history.push('/login');
+       }
+    })
     return (
                 <Switch>
                     <Route path='/' exact component={Dashboard} />

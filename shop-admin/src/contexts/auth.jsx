@@ -5,6 +5,7 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState('');
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     const storedDataUser = localStorage.getItem('webnc_user');
@@ -18,15 +19,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('webnc_user');
   }
   async function signIn(entity) {
-    const response = await api.post('/auth/signin', entity);
-    if(response.user.role<2) return null;
-    setUser(response);
-    api.defaults.headers.Authorization = response.accessToken;
-    localStorage.setItem(
-      'webnc_user',
-      JSON.stringify(response)
-    );
-    return response;
+    console.log(entity);
+    if(entity.email === 'tritrung232@gmail.com' && entity.password === '123456') {
+      localStorage.setItem('storeId',1);
+      setAuthenticated(true);
+      }
   }
   async function signUp(entity) {
     const response = await api.post('/auth/signup', entity);
@@ -41,10 +38,12 @@ export const AuthProvider = ({ children }) => {
     const response = await api.post('/auth/otp', entity);
     return response;
   }
+const users = [{email: 'tritrung232@gmail.com', password: '123456'}, {email: 'abc@gmail.com', password: 'Nguyen Van A'}, {email: 'tritrung@gmail.com', password: 'tritrung'}, {email: 'tritrung123@gmail.com', password: 'tritrung'}]
+
   return (
     <AuthContext.Provider
       value={{
-        authenticated: Boolean(user),
+        authenticated,
         user,
         signIn,
         signUp,
