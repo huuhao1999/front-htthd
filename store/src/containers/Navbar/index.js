@@ -14,6 +14,7 @@ import _ from 'lodash';
 import Avatar from '@material-ui/core/Avatar';
 import SearchBar from './search';
 import Catego from './category';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 const Navbar = () => {
 
   const { authenticated, user, signOut } = useAuth();
@@ -66,10 +67,13 @@ const Navbar = () => {
       <div className={isShowMobileNav ? 'nav-items-mobile' : 'nav-items'}>
 
            <SearchBar style={{ padding: '10px', marginLeft:'0px' }} />
-           <Catego catego={catego} />    
-        <div>
-       
           
+           <Catego catego={catego} />    
+
+       
+        <div>
+
+        <ShoppingCartIcon style={{marginTop: '20px', color: 'white', marginRight: '20px', cursor: 'pointer'}} onClick={()=>{ history.push('/cart')}}/>
           {authenticated === true && userInfo ?
             <div>
               <Avatar className='size-avatar' alt="Remy Sharp" src={userInfo.avatar_url} onClick={handleClick} style={{ marginTop: '10px', backgroundColor: 'white' }} />
