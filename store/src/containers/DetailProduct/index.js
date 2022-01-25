@@ -80,18 +80,14 @@ const DetailPage = () => {
         .then(items => {
           if (mounted) {
             setProducts(items.data);
-            imagesThum.unshift(items.data.url_image);
-            setVideos(items.data.videos);
-            setImageThunal(imagesThum);
-            setIsLearn(items.data.registered);
-            setIsLiked(items.data.liked);
-            setIsReview(items.data.reviewed);
-            setCompleted(items.data.status)
-            contextProduct.getProductByQuery({ category_id: items.data.category_id })
+            console.log(items.data);
+            setImageThunal([items.data.urlImage]);
+            contextProduct.getDetailProductById1(items.data.categoryId)
               .then(it => {
+                console.log(it);
                 if (mounted) {
-                  const result = it.data.records.filter(function (el) { return el._id != items.data._id; });
-                  setProductSuchas(result);
+                  //const result = it.data.filter(function (el) { return el._id != items.data._id; });
+                  setProductSuchas(it.data);
                 }
               })
           }
@@ -117,26 +113,104 @@ const DetailPage = () => {
   };
   const handleJoin = () => {
     if (authenticated) {
-      contextProfile.registerCourese({ product_id: id }).then((res) => {
-        addNoti("Join successful courses", "success", 'Join course')
-        setTimeout(function () { history.push(`/detail/${id}/videos`) }, 3000);
-      }).catch((err) => {
-        addNoti("Failed to join the course", "danger", 'Join course')
-      })
+      const storedDataUserCart = localStorage.getItem('cart_web');
+      if (storedDataUserCart) {
+        let cart = JSON.parse(storedDataUserCart);
+        let flat = 0;
+        for (let asd of cart) {
+          if (asd.id == products.id) {
+            asd.quantity = asd.quantity?  asd.quantity + 1: 1;
+            flat = 1;
+          }
+        }
+        if (flat == 0) {
+          let a1 = products;
+        a1.quantity = 1;
+          cart.push(a1);
+        }
+        
+
+
+
+        localStorage.setItem(
+          'cart_web',
+          JSON.stringify(cart)
+        );
+      } else {
+
+        let a1 = products;
+        a1.quantity = 1;
+        let cart = [a1];
+        localStorage.setItem(
+          'cart_web',
+          JSON.stringify(cart)
+        );
+
+
+      }
+      addNoti('Thêm giỏ hàng thành công', 'success', "Thêm");
+
     } else {
       history.push('/signin');
     }
   }
+  const handleJoinMua = () => {
+    if (authenticated) {
+      const storedDataUserCart = localStorage.getItem('cart_web');
+      if (storedDataUserCart) {
+        let cart = JSON.parse(storedDataUserCart);
+        let flat = 0;
+        for (let asd of cart) {
+          if (asd.id == products.id) {
+            asd.quantity = asd.quantity?  asd.quantity + 1: 1;
+            flat = 1;
+          }
+        }
+        if (flat == 0) {
+          let a1 = products;
+        a1.quantity = 1;
+          cart.push(a1);
+        }
+        
+
+
+
+        localStorage.setItem(
+          'cart_web',
+          JSON.stringify(cart)
+        );
+      } else {
+
+        let a1 = products;
+        a1.quantity = 1;
+        let cart = [a1];
+        localStorage.setItem(
+          'cart_web',
+          JSON.stringify(cart)
+        );
+
+
+      }
+ //     addNoti('Thêm giỏ hàng thành công', 'success', "Thêm");
+      history.push('/checkout');
+    } else {
+      history.push('/signin');
+    }
+  }
+
+
+  
   const handleJoinLearnContinue = () => {
     history.push(`/detail/${id}/videos`)
   }
   const [rate, setRate] = useState(5);
   const sendReviews = () => {
     let entity = {
-      score: rate,
-      content: reviewValueSend.current.value
+      "score": Number(rate),
+      "content": reviewValueSend.current.value,
+      "product_id": Number(id)
     }
-    contextProduct.createReview(entity, id).then((res) => {
+    contextProduct.createReview(entity).then((res) => {
       addNoti('Add review successfully', 'success', "Add");
       setTimeout(function () { window.location.reload(false); }, 2000);
       //Xử lí review
@@ -238,13 +312,15 @@ const DetailPage = () => {
             <div className="box">
               <div className="row">
                 <h2>{products.name || "Đang tải tên sản phẩm"}</h2>
-    
+
               </div>
-              <p>0 đ</p>
-<button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Add to card</button>
-              <p><b>Detail: </b> {products.short_description}</p>
+              <p>{products.price ? products.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) : ''}</p>
+              <button className="cart" style={{ backgroundColor: 'rgb(197 185 38)' }} onClick={handleJoin}>Thêm giỏ hàng</button>
+              <br />
+              <button className="cart" onClick={handleJoinMua}>Mua ngay</button>
+              <p><b>Detail: </b> {products.fullDescription}</p>
               <p>
-                <div dangerouslySetInnerHTML={{ __html: products.full_description }}>
+                <div dangerouslySetInnerHTML={{ __html: products.fullDescription }}>
                 </div></p>
               <p style={{ opacity: 0.4, fontStyle: 'oblique', fontSize: '13px' }}><b>Update at: </b>{moment(products.update_at).format("hh:mm DD/MM/YYYY")}</p>
 
@@ -264,7 +340,7 @@ const DetailPage = () => {
               {productSuchas.map((item) => (
                 <CourseCard
                   title={item.name}
-                  subTitle={item.category}
+                  subTitle={item.categoryName}
                   happyStudents='1000'
                   hours='100h'
                   sessions="6"
@@ -273,12 +349,12 @@ const DetailPage = () => {
                   price='0'
                   discount='0'
                   learnMoreLink='#'
-                  imageLink={item.url_image}
-                  categoryName={item.category}
-                  lecturer={item.author_name}
-                  reviews={item.number_reviews}
-                  score={item.score}
-                  productId={item._id}
+                  imageLink={item.urlImage}
+                  categoryName={item.categoryName}
+                  lecturer={item.storeName}
+                  reviews={item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                  score={'10'}
+                  productId={item.id}
                 />
               ))}
             </Carousels>

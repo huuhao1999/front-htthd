@@ -16,6 +16,7 @@ import Rating from '@material-ui/lab/Rating';
 import { InputNumber, Rate } from "antd";
 import { Height } from '@material-ui/icons';
 import { white } from 'material-ui/styles/colors';
+import { Button } from '@material-ui/core';
 const CourseCard = ({
   title,
   happyStudents,
@@ -26,7 +27,9 @@ const CourseCard = ({
   reviews,
   score
 }) => (
-  <div className="course-card">
+  <div className="course-card" style={{display: "flex",
+    width: "800px",
+    margin: "20px"}}>
     <div style={{ height: '150px', width: '250px', margin: 'auto', padding: '10px', backgroundColor: white, borderRadius: '5px', marginTop: '13px', opacity: '0.8' }}>
       {imageLink ? <div className="edit_mainge_ok" ><img alt="" className="edit_mainge" src={imageLink} style={{ maxHeight: '150px', maxWidth: '250px', }} /></div>
         : <div className="card-image" />}
@@ -55,7 +58,7 @@ const CourseCard = ({
         <div className="detail">
           <img alt="" src={authorImage} />
           <p>
-            {lecturer}
+           Số lượng: {lecturer}
           </p>
         </div>
         <div className="detail">
@@ -64,7 +67,6 @@ const CourseCard = ({
             {reviews || 0}
           </p>
         </div>
-        <Rating name="disabled" value={score / 2} disabled />
       </div>
 
       <div className="price-offer">
@@ -77,9 +79,15 @@ const CourseCard = ({
       </div>
 
       <div className="link">
-        <Link to={`/detail/${productId}`} onClick={() => { setTimeout(() => { window.location.reload(false); }, 0); }}>
-        Xem ngay
-        </Link>
+      <Button>
+         Giảm
+        </Button>
+        <Button style={{color: '#761313'}}>
+         Remove
+        </Button>
+        <Button>
+         Thêm
+        </Button>
       </div>
     </div>
   </div>

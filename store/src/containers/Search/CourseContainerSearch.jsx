@@ -32,9 +32,10 @@ const CourseContainer = ({
         if (query.category_id) setCheckedt(query.category_id);
         context.getSearch(query)
             .then(items => {
-                setProducts(items.data.records);
-                setTotalPage(items.data.totalPage);
-                setPage(items.data.page);
+                console.log(items);
+                 setProducts(items.data);
+                // setTotalPage(items.data.totalPage);
+                // setPage(items.data.page);
                 return;
             })
     }
@@ -49,24 +50,24 @@ const CourseContainer = ({
             <div className="course-cards">
                 {
                     products.map(
-                        (course) => (
+                        (item) => (
                             <CourseCard
-                                title={course.name}
-                                subTitle={course.category}
-                                happyStudents='1000'
-                                hours='100h'
-                                sessions="6"
-                                isWeekend='true'
-                                isWeekday='true'
-                                price='0'
-                                discount='0'
-                                learnMoreLink='#'
-                                imageLink={course.url_image}
-                                categoryName={course.category}
-                                lecturer={course.author_name}
-                                reviews={course.number_reviews}
-                                score={course.score}
-                                productId={course._id}
+                            title={item.name}
+                            subTitle={item.categoryName}
+                            happyStudents='1000'
+                            hours='100h'
+                            sessions="6"
+                            isWeekend='true'
+                            isWeekday='true'
+                            price='0'
+                            discount='0'
+                            learnMoreLink='#'
+                            imageLink={item.urlImage}
+                            categoryName={item.categoryName}
+                            lecturer={item.storeName}
+                            reviews={item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
+                            score={'10'}
+                            productId = {item.id}
                             />
                         )
                     )

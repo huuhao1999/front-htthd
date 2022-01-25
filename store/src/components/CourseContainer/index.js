@@ -24,7 +24,7 @@ const CourseContainer = ({
   let updateProducts = (query) => {
     context.getProductByQuery(query)
       .then(items => {
-        setProducts(items.data.records);
+     //   setProducts(items.data.records);
         return;
       })
   }

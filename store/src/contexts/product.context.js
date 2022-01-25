@@ -4,6 +4,15 @@ import api from '../services/api.service';
 export const ProductContext = createContext({});
 
 export const ProductProvider = ({ children }) => {
+
+
+    async function getAllProduct() {
+        const response = await api.get('/Products');
+        return response;
+    }
+
+
+
     async function getHighlightWeek() {
         const response = await api.get('/products/highlight-of-week');
         return response;
@@ -38,25 +47,37 @@ export const ProductProvider = ({ children }) => {
         return response;
     }
     async function getDetailProductById(id) {
-        const response = await api.get(`/products/${id}`);
+        const response = await api.get(`/Products/id?Id=${id}`);
         return response;
     }
+
+    async function getDetailProductById1(id) {
+        const response = await api.get(`/products/search?categoryId=${id}`);
+        return response;
+    }
+
     async function getVideosByProductId(id) {
         const response = await api.get(`/products/${id}/videos`);
         return response;
     }
-    async function createReview(entity, productId) {
-        let params = { product_id: productId }
-        const response = await api.post('/reviews', entity, { params });
+    async function createReview(entity) {
+
+        const storedDataUser = localStorage.getItem(global.config.LOCALSTORAGE_NAME);
+        api.defaults.headers.Authorization = `Bearer ${JSON.parse(storedDataUser).accessToken}`;
+
+       
+
+
+        const response = await api.post('/Review/create', entity);
         return response;
     }
     async function getAllReviews(productId) {
-        let params = { product_id: productId }
-        const response = await api.get(`/reviews`, { params });
+        let params = { productId: productId }
+        const response = await api.get(`/Review/by-product`, { params });
         return response;
     }
     return (
-        <ProductContext.Provider value={{ VideoPause, createReview, getAllReviews, getVideosByProductId, getHighlightWeek, mostOfViews, getLastest, getProductByQuery, getSearch, getDetailProductById }}>
+        <ProductContext.Provider value={{ getDetailProductById1, getAllProduct, VideoPause, createReview, getAllReviews, getVideosByProductId, getHighlightWeek, mostOfViews, getLastest, getProductByQuery, getSearch, getDetailProductById }}>
             {children}
         </ProductContext.Provider>
     );

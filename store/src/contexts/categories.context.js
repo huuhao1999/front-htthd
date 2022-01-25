@@ -8,7 +8,8 @@ export const CategoryProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchCategory() {
-      const response = await api.get('/categories');
+      const response = await api.get('/Category');
+      console.log(response);
       setCategoryList(response.data);
     }
     fetchCategory();
@@ -19,7 +20,7 @@ export const CategoryProvider = ({ children }) => {
     return response;
   }
   async function getCategoryList() {
-    const response = await api.get('/categories');
+    const response = await api.get('/Category');
     return response;
   }
   return (

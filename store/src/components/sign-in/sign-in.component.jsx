@@ -102,18 +102,16 @@ function SignIn(props) {
     context
       .signIn(entity)
       .catch((error) => {
-        if (_.has(error, 'response')) {
-          if (error.response.data.message.includes('Password')) {
-            addNoti('Password incorrect!', 'danger', 'Notification');
-          } else
-            addNoti('Email does not exist!', 'danger', 'Notification');
+        
+            addNoti('Email hoặc mật khẩu sai', 'danger', 'Notification');
           setLoading(false);
           return;
-        }
+        
       })
       .then((res) => {
+        console.log(res);
         if (_.has(res, 'status'))
-          if (res.status === 201) {
+          if (res.status === 200) {
             addNoti('Login success', 'success', 'Notification');
             setTimeout(function () {
               history.push('/');

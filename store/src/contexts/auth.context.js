@@ -8,31 +8,42 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedDataUser = localStorage.getItem(global.config.LOCALSTORAGE_NAME);
+ 
     if (storedDataUser) {
       setUser(JSON.parse(storedDataUser));
-      
-      api.defaults.headers.Authorization = user.accessToken;
-      console.log(storedDataUser);
+      api.defaults.headers.Authorization = storedDataUser.accessToken;
     }
   }, [user.accessToken]);
+
+
+
+
   function signOut() {
     setUser({});
     localStorage.removeItem(global.config.LOCALSTORAGE_NAME);
   }
   async function signIn(entity) {
-    const response = await api.post('/auth/signin', entity);
+    const response = await api.post('/auth/login', entity);
     setUser(response.data);
     api.defaults.headers.Authorization = response.data.accessToken;
+    let temp = {
+      ...response.data,
+      user: {
+        avatar_url: 'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg'
+      }
+    }
     localStorage.setItem(
       global.config.LOCALSTORAGE_NAME,
-      JSON.stringify(response.data)
+      JSON.stringify(temp)
     );
     return response;
   }
   async function signUp(entity) {
-    const response = await api.post('/auth/signup', entity);
+    const response = await api.post('/auth/register', entity);
+    console.log(response);
     return response;
   }
+
   async function getUser(id) {
     const response = await api.get(`/users/${id}`);
     return response;
@@ -40,6 +51,12 @@ export const AuthProvider = ({ children }) => {
   async function otp(token_otp, entity) {
     api.defaults.headers.Authorization = `Bearer ${token_otp}`;
     const response = await api.post('/auth/otp', entity);
+    return response;
+  }
+  async function profileuser(token_otp) {
+
+    api.defaults.headers.Authorization = `Bearer ${token_otp}`;
+    const response = await api.get('/auth/profile');
     return response;
   }
   return (
@@ -51,7 +68,8 @@ export const AuthProvider = ({ children }) => {
         signUp,
         otp,
         signOut,
-        getUser
+        getUser,
+        profileuser
       }}
     >
       {children}

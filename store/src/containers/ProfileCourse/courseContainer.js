@@ -24,8 +24,8 @@ const CourseContainer = ({
             contextProfile.getProfile()
                 .then(items => {
                     if (mounted) {
-                        setResgisters(items.data);
-                        setProducts(items.data)
+                        // setResgisters(items.data);
+                        // setProducts(items.data)
                         console.log(items.data);
                     }
                 })
